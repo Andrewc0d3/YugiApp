@@ -4,7 +4,6 @@ export let limiteCartas = 30;
 export async function obtenerCartas(limite = 30) {
   const apiURL = `https://db.ygoprodeck.com/api/v7/cardinfo.php?num=${limite}&offset=0`;
 
-  // Usamos un proxy para evitar CORS en GitHub Pages
   const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiURL)}`;
 
   try {

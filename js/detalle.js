@@ -1,79 +1,42 @@
-// detalle.js
-export function mostrarDetalle(carta) {
-  // Obtenemos datos adicionales de forma segura
-  const id = carta.id || "No disponible";
-  const rareza = carta.card_sets && carta.card_sets.length > 0
-    ? carta.card_sets[0].set_rarity
-    : "Desconocida";
-  const precio = carta.card_prices && carta.card_prices.length > 0
-    ? `${carta.card_prices[0].cardmarket_price} €`
-    : "No disponible";
+async function mostrarDetalle(id) {
+  try {
+    const respuesta = await fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php?id=${id}`);
+    const datos = await respuesta.json();
+    const carta = datos.data[0];
 
-  // Crear modal
-  const modal = document.createElement("div");
-  modal.style = `
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  `;
+    const rareza = carta.card_sets ? carta.card_sets[0].set_rarity : "Desconocida";
+    const precio = carta.card_prices ? carta.card_prices[0].cardmarket_price + " €" : "No disponible";
 
-  // Contenido del modal
-  modal.innerHTML = `
-    <div style="
-      background: #fff;
-      color: #222;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 400px;
-      width: 90%;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      text-align: center;
-      font-family: Arial, sans-serif;
-      animation: fadeIn 0.3s ease-in-out;
-    ">
-      <h2>${carta.name}</h2>
-      <img src="${carta.card_images[0].image_url}" alt="${carta.name}" style="width:100%; border-radius:8px; margin-bottom:10px;">
-      
-      <p><strong>🆔 Código:</strong> ${id}</p>
-      <p><strong>🧩 Tipo:</strong> ${carta.type}</p>
-      <p><strong>💎 Rareza:</strong> ${rareza}</p>
-      <p><strong>💰 Precio (CardMarket):</strong> ${precio}</p>
-      
-      <hr style="margin:10px 0;">
-      <p style="text-align: justify;"><strong>📜 Descripción:</strong><br>${carta.desc}</p>
+    const modal = document.createElement("div");
+    modal.classList.add("modal-overlay");
+    modal.innerHTML = `
+      <div class="modal-content">
+        <h2>${carta.name}</h2>
+        <img src="${carta.card_images[0].image_url}" alt="${carta.name}">
+        
+        <p><strong>🆔 Código:</strong> ${carta.id}</p>
+        <p><strong>🧩 Tipo:</strong> ${carta.type}</p>
+        <p><strong>💎 Rareza:</strong> ${rareza}</p>
+        <p><strong>💰 Precio (CardMarket):</strong> ${precio}</p>
+        
+        <hr>
+        <p class="descripcion"><strong>📜 Descripción:</strong><br>${carta.desc}</p>
 
-      <button id="cerrar" style="
-        background: #007bff;
-        color: white;
-        border: none;
-        padding: 8px 14px;
-        border-radius: 8px;
-        cursor: pointer;
-        margin-top: 12px;
-      ">Cerrar</button>
-    </div>
-  `;
+        <button id="cerrar">Cerrar</button>
+      </div>
+    `;
 
-  // Animación CSS
-  const style = document.createElement("style");
-  style.textContent = `
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-  `;
-  document.head.appendChild(style);
+    document.body.appendChild(modal);
 
-  // Mostrar modal
-  document.body.appendChild(modal);
+    setTimeout(() => modal.classList.add("show"), 10);
 
-  // Cerrar modal
-  modal.querySelector("#cerrar").addEventListener("click", () => modal.remove());
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) modal.remove();
-  });
+    document.getElementById("cerrar").addEventListener("click", () => {
+      modal.classList.remove("show");
+      setTimeout(() => modal.remove(), 300);
+    });
+
+  } catch (error) {
+    console.error("Error al cargar el detalle:", error);
+    alert("No se pudo cargar la información de la carta.");
+  }
 }

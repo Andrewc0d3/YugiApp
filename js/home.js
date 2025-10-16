@@ -1,4 +1,3 @@
-// home.js
 import { obtenerCartas } from "./conexion.js";
 import { mostrarDetalle } from "./detalle.js";
 import { agregarFavorito } from "./favoritos.js";
