@@ -82,3 +82,67 @@ body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; }
   from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
 }
+
+/* 🎯 Estilos de la pestaña de filtros */
+#filtro {
+  padding: 20px;
+  text-align: center;
+}
+
+.contenedor-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Botones de filtro */
+.btn-filtro {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-filtro:hover {
+  background: #0056b3;
+}
+
+/* Contenedor de cartas */
+.contenedor-cartas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.carta-item {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.carta-item:hover {
+  transform: scale(1.05);
+}
+
+.carta-item img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.carta-item h3 {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.loading {
+  font-style: italic;
+  color: #555;
+}

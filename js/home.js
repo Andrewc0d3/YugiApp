@@ -8,6 +8,7 @@ const buscador = document.getElementById("buscador");
 const menu = document.getElementById("menu");
 const mensaje = document.getElementById("mensaje");
 
+
 document.addEventListener("DOMContentLoaded", async () => {
   const cartas = await obtenerCartas();
   if (cartas.length > 0) {

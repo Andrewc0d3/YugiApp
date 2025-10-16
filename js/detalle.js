@@ -1,8 +1,9 @@
+// 🧠 Función para abrir el detalle de una carta usando su ID
 async function mostrarDetalle(id) {
   try {
     const respuesta = await fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php?id=${id}`);
     const datos = await respuesta.json();
-    const carta = datos.data[0];
+    const carta = datos.data[100];
 
     const rareza = carta.card_sets ? carta.card_sets[0].set_rarity : "Desconocida";
     const precio = carta.card_prices ? carta.card_prices[0].cardmarket_price + " €" : "No disponible";
@@ -28,8 +29,8 @@ async function mostrarDetalle(id) {
 
     document.body.appendChild(modal);
 
+    // Animación y cierre
     setTimeout(() => modal.classList.add("show"), 10);
-
     document.getElementById("cerrar").addEventListener("click", () => {
       modal.classList.remove("show");
       setTimeout(() => modal.remove(), 300);
@@ -40,3 +41,5 @@ async function mostrarDetalle(id) {
     alert("No se pudo cargar la información de la carta.");
   }
 }
+
+export { mostrarDetalle };
