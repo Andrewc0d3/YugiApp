@@ -1,7 +1,7 @@
 // home.js
 import { obtenerCartas } from "./conexion.js";
 import { mostrarDetalle } from "./detalle.js";
-import { agregarFavorito } from "./favorito.js";
+import { agregarFavorito } from "./favoritos.js";
 import { guardarColeccion } from "./coleccion.js";
 
 const contenedor = document.getElementById("contenedor");
