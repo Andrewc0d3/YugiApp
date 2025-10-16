@@ -1,30 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YugiApp - Fix</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YugiApp</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>🃏 YugiApp</h1>
-    <input id="buscador" placeholder="Buscar carta..." />
-    <div id="menu">
-      <button data-tab="home">Home</button>
-      <button data-tab="favoritos">Favoritos</button>
-      <button data-tab="aleatorio">Aleatorio</button>
-      <button data-tab="colección">Deck</button>
-      <button data-tab="filtro">Filtro</button>
+  <!-- 🔹 Menú principal -->
+  <nav>
+    <button onclick="mostrarSeccion('home')">Home</button>
+    <button onclick="mostrarSeccion('favoritos')">Favoritos</button>
+    <button onclick="mostrarSeccion('buscador')">Buscador</button>
+    <button onclick="mostrarSeccion('filtro')">Filtro</button>
+    <button onclick="mostrarSeccion('coleccion')">Colección</button>
+    <button onclick="mostrarSeccion('deck')">Deck</button>
+  </nav>
 
-    </div>
-  </header>
+  <!-- 🔹 Secciones -->
+  <main>
+    <section id="home" class="seccion activa">
+      <h2>Inicio</h2>
+      <div id="contenedor-cartas"></div>
+    </section>
 
-  <div id="mensaje">Cargando cartas...</div>
-  <main id="contenedor"></main>
+    <section id="favoritos" class="seccion">
+      <h2>Favoritos</h2>
+      <div id="contenedor-favoritos"></div>
+    </section>
 
-  <script type="module" src="js/home.js"></script>
-  <script src="js/filtro.js"></script>
-  <script src="js/detalle.js"></script>
+    <section id="buscador" class="seccion">
+      <h2>Buscador</h2>
+      <input type="text" id="input-busqueda" placeholder="Buscar carta...">
+      <div id="resultados-busqueda"></div>
+    </section>
+
+    <section id="filtro" class="seccion">
+      <h2>Filtro por tipo</h2>
+      <div id="botones-filtro"></div>
+      <div id="cartas-filtradas"></div>
+    </section>
+
+    <section id="coleccion" class="seccion">
+      <h2>Mi Colección</h2>
+      <div id="contenedor-coleccion"></div>
+    </section>
+
+    <section id="deck" class="seccion">
+      <h2>Mi Deck</h2>
+      <div id="contenedor-deck"></div>
+    </section>
+  </main>
+
+  <script type="module" src="home.js"></script>
 </body>
 </html>
