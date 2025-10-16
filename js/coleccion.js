@@ -1,4 +1,3 @@
-// coleccion.js
 import { renderCartas } from "./home.js";
 
 export function guardarColeccion(carta) {
@@ -12,5 +11,11 @@ export function guardarColeccion(carta) {
 
 export function mostrarColeccion() {
   const col = JSON.parse(localStorage.getItem("coleccion")) || [];
+  const contenedor = document.getElementById("contenedor");
+  contenedor.innerHTML = "";
+  if (col.length === 0) {
+    contenedor.innerHTML = "<p>No tienes cartas en tu colección aún.</p>";
+    return;
+  }
   renderCartas(col);
 }
