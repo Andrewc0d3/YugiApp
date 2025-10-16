@@ -3,19 +3,19 @@
 import { obtenerCartas, limiteCartas } from "./conexion.js";
 import { mostrarDetalle } from "./detalle.js";
 import { agregarFavorito } from "./favorito.js";
-import { guardarColeccion, obtenerColeccion } from "./coleccion.js";
+import { guardarColeccion } from "./coleccion.js";
 
 const contenedor = document.getElementById("contenedor");
 const buscador = document.getElementById("buscador");
 const menu = document.getElementById("menu");
 
-// 🔹 Carga inicial
+// Carga inicial
 document.addEventListener("DOMContentLoaded", async () => {
   const cartas = await obtenerCartas(limiteCartas);
   renderCartas(cartas);
 });
 
-// 🔹 Renderiza las cartas
+// Renderizar cartas
 export function renderCartas(lista) {
   contenedor.innerHTML = "";
   lista.forEach(carta => {
@@ -25,15 +25,17 @@ export function renderCartas(lista) {
       <img src="${carta.card_images[0].image_url}" alt="${carta.name}">
       <h3>${carta.name}</h3>
       <button class="fav-btn">❤️</button>
+      <button class="col-btn">📦</button>
     `;
 
     card.querySelector("img").addEventListener("click", () => mostrarDetalle(carta));
     card.querySelector(".fav-btn").addEventListener("click", () => agregarFavorito(carta));
+    card.querySelector(".col-btn").addEventListener("click", () => guardarColeccion(carta));
     contenedor.appendChild(card);
   });
 }
 
-// 🔹 Buscador
+// Buscador
 buscador.addEventListener("input", async (e) => {
   const texto = e.target.value.toLowerCase();
   const cartas = await obtenerCartas(limiteCartas);
@@ -41,7 +43,7 @@ buscador.addEventListener("input", async (e) => {
   renderCartas(filtradas);
 });
 
-// 🔹 Menú de pestañas
+// Menú
 menu.addEventListener("click", async (e) => {
   if (!e.target.matches("button")) return;
   const opcion = e.target.dataset.tab;

@@ -9,7 +9,8 @@ export function mostrarDetalle(carta) {
       <h2>${carta.name}</h2>
       <img src="${carta.card_images[0].image_url}" alt="${carta.name}">
       <p><b>Tipo:</b> ${carta.type}</p>
-      <p><b>Rareza:</b> ${carta.race}</p>
+      <p><b>Atributo:</b> ${carta.attribute || "N/A"}</p>
+      <p><b>Nivel:</b> ${carta.level || "N/A"}</p>
       <p><b>Descripción:</b> ${carta.desc}</p>
       <button id="cerrar">Cerrar</button>
     </div>
